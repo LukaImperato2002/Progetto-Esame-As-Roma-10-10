@@ -1,0 +1,364 @@
+#include <stdio.h>
+#include <stdlib.h>
+//Includo la libreria <string.h> che contiene la funzione strcmp.
+#include <string.h>
+
+typedef struct
+{
+    char* nome;
+    char* cognome;
+    char* ruolo;
+    int numero;
+    float valore_mercato;
+    int anno_nascita;
+    int goal22_23;
+    int assist22_23;
+}giocatore;
+
+
+// Assegno le caratteristiche e generalità ad ogni giocatore della rosa.
+//Portieri
+giocatore Patricio = {"Rui" , "Patricio" , "Portiere" , 1 , 6.00 , 1988 , 0 , 0 };
+giocatore Boer = {"Pietro" , "Boer" , "Portiere" , 63 , 0.150 , 2002 , 0 , 0 };
+giocatore Svilar = {"Mile" , "Svilar" , "Portiere" , 99 , 2.00 , 1999 , 0 , 0 };
+//Difensori
+giocatore Ibanez = {"Roger" , "Ibanez" , "Difensore" , 3 , 23.00 , 1998 , 1 , 0 };
+giocatore Smalling = {"Chris" , "Smalling" , "Difensore" , 6 , 8.00 , 1989 , 2 , 0 };
+giocatore Mancini = {"Gianluca" , "Mancini" , "Difensore" , 23 , 21.00 , 1996 , 0 , 0 };
+giocatore Kumbulla = {"Marash" , "Kumbulla" , "Difensore" , 24 , 16.00 , 2000 , 0 , 0 };
+giocatore Spinazzola = {"Leonardo" , "Spinazzola" , "Difensore" , 37 , 20.00 , 1993 , 0 , 1 };
+giocatore Vina = {"Matias" , "Vina" , "Difensore" , 17 , 7.50 , 1997 , 0 , 0 };
+giocatore Karsdorp = {"Rick" , "Karsdorp" , "Difensore" , 2 , 13.00 , 1995 , 0 , 0 };
+giocatore Celik = {"Zeki" , "Celik" , "Difensore" , 19 , 15.00 , 1997 , 0 , 0 };
+//Centrocampisti
+giocatore Cristante = {"Bryan" , "Cristante" , "Centrocampisti" , 4 , 20.00 , 1995 , 1 ,0 };
+giocatore Matic = {"Nemanja" , "Matic" , "Centrocampista" , 8 , 5.00 , 1988 , 0 , 0};
+giocatore Wijnaldum = {"Georginio" , "Wijnaldum" , "Centrocampista" , 25 , 12.00 , 1990 , 0 , 0 };
+giocatore Camara = {"Medy" , "Camara" , "Centrocampista" , 20 , 11.00 , 1997 , 0 , 0 };
+giocatore Bove = {"Edoardo" , "Bove" , "Centrocampista" , 52 , 1.10 , 2002 , 0 , 0 };
+giocatore Zalewski = {"Nicola" , "Zalewski" , "Centrocampista" , 59 , 12.00 , 2002 , 0 , 0 };
+giocatore Pellegrini = {"Lorenzo" , "Pellegrini" , "Centrocampista" , 7 , 45.00 , 1996 , 0 , 3};
+giocatore Zaniolo = {"Nicolo'" , "Zaniolo" , "Centrocampista" , 22 , 33.00 , 1999 , 0 , 0 };
+//Attaccanti
+giocatore Abraham = {"Tammy" , "Abraham" , "Attaccante" , 9 , 50.00 , 1997 , 2 , 1};
+giocatore Dybala = {"Paulo" , "Dybala" , "Attaccante" , 21 , 35.00 , 1993 , 4 , 2};
+giocatore Belotti = {"Andrea" , "Belotti" , "Attaccante" , 11 , 20.00 , 1993 , 0 , 0 };
+giocatore Shomurodov = {"Eldor" , "Shomurodov" , "Attaccante" , 14 , 8.00 , 1995 , 0 , 0};
+giocatore El_Shaarawy = {"Stephan" , "El Shaarawy" , "Attaccante" , 92 , 6.00 , 1992 , 0 , 0 };
+
+int main()
+{
+    // Utili per stampare la formazione scelta dall'utente.
+    int attaccanti[6];
+    int centrocampisti[8];
+    int difensori[8];
+    int portieri[3];
+    // Creo un array di giocatori, mi risulta utile per stampare le caratteristiche e generalità dei giocatori.
+    giocatore squadra[] = {Patricio,Boer,Svilar,Ibanez,Smalling,Mancini,Kumbulla,Spinazzola,Vina,Karsdorp,Celik,Cristante,Matic,Wijnaldum,Camara,Bove,Zalewski,Pellegrini,Zaniolo,Abraham,Dybala,Belotti,Shomurodov,El_Shaarawy};
+    int scelta_statistiche;
+    int scelta_maglia;
+    int attaccanti_da_scegliere;
+    int centrocampisti_da_scegliere;
+    int difensori_da_scegliere;
+    int i=0;
+    int j=0;
+    int z=0;
+    /*Il seguente while è necessario affinchè l'utente non possa scegliere un numero negativo di giocatori
+      e nemmeno maggiore del numero di giocatori in rosa.*/
+    while(i<1)
+    {
+        printf("Di quanti giocatori vuoi conoscere le statistiche?\n");
+        scanf("%d", &scelta_statistiche);
+        if(scelta_statistiche<0)
+        {
+            printf("Non puoi scegliere un numero negativo,riprova.\n");
+        }
+        else if(scelta_statistiche>24)
+        {
+            printf("Ci sono solo 24 giocatori in rosa,riprova.\n");
+        }
+        else
+        {
+            i++;
+        }
+    }
+    /* Inserire z++ nell'istruzione condizionale fa si che il ciclo while si ripeta sino a quando
+       vengano scelti i numeri di maglia corretti di tutti i giocatori di cui l'utente vuole
+       conoscere le caratteristiche, altrimenti l'indice incrementerebbe anche se il numero fosse
+       sbagliato. */
+    while(z<scelta_statistiche)
+    {
+        printf("Qual e' il numero di maglia del giocatore di cui vuoi conoscere le statistiche?\n");
+        scanf("%d", &scelta_maglia);
+        /* In tale ciclo for sfrutto l'array di giocatori creato in precedenza in maniera tale da
+           stampare le caratteristiche e generalità del giocatore di cui l'utente sceglie il
+           numero di maglia. Ho scelto di utilizzare il for e non il  while o lo switch case
+           in quanto ho reputato le ultime due opzioni impraticabili per l'elevato numero di
+           giocatori. */
+        for( j=0 ; j<24 ; j++)
+        {
+            if( squadra[j].numero == scelta_maglia )
+            {
+                printf("Hai scelto %s %s.\n", squadra[j].nome , squadra[j].cognome);
+                printf("E' nato nel %d.\n", squadra[j].anno_nascita);
+                printf("Gioca come %s.\n", squadra[j].ruolo);
+                printf("Il suo valore di mercato e' %f Milioni di Euro.\n", squadra[j].valore_mercato);
+                printf("Nella stagione in atto ha totalizzato %d goal e %d assist.\n\n", squadra[j].goal22_23 , squadra[j].assist22_23);
+                z++;
+            }
+        }
+    }
+    // Formazione
+    char scelta_formazione[50];
+    int scelta_modulo;
+    int contatore_errata_formazione=0;
+    int contatore_errato_modulo=0;
+    printf("Vuoi creare la tua formazione?\n");
+    /* E' necessario utilizzare il seguente ciclo while in quanto permette di trattare il caso
+       in cui l'utente risponda alla domanda "Vuoi inserire la tua formazione?" diversamente da
+       si/Si/no/No, in questa condizione si finisce nel blocco che stampa l'avviso "Si accettano
+       risposte della forma Si/No" ma che non incrementa contatore_errata_formazione, pertanto
+       il ciclo while si ripeterà sino a quando l'utente avrà risposto correttamente, e dunque
+       si finisce in un blocco che incrementa contatore_errata_formazione da 0 ad 1 affinchè si
+       interrompa il ciclo. */
+    while(contatore_errato_modulo<1)
+    {
+        scanf("%s", scelta_formazione);
+        /* La funzione strcmp permette di effettuare un confronto tra stringhe , in particolare
+           assume valore 0 quando le stringhe sono identiche. Mentre ho utilizzato l'operatore
+           "Or" per assorbire sia il caso in cui l'utente risponde "Si" che il caso in cui
+           risponde "si". */
+        if( strcmp(scelta_formazione,"si") == 0 || strcmp(scelta_formazione,"Si") == 0 )
+            {
+            //Il funzionamento del seguente while e pressochè indentico al suddetto.
+            while(contatore_errata_formazione<1)
+            {
+                printf("Scegli il modulo di gioco tra i seguenti:\n");
+                printf("(1) 4-4-2\n");
+                printf("(2) 4-3-3\n");
+                printf("(3) 3-5-2\n");
+                printf("(4) 3-4-3\n");
+                scanf("%d",&scelta_modulo);
+                switch(scelta_modulo)
+                {
+                    case 1:
+                        printf("Hai scelto il 4-4-2.\n");
+                        contatore_errata_formazione ++;
+                        attaccanti_da_scegliere = 2;
+                        centrocampisti_da_scegliere = 4;
+                        difensori_da_scegliere = 4;
+                        break;
+                    case 2:
+                        printf("Hai scelto il 4-3-3.\n");
+                        contatore_errata_formazione ++;
+                        attaccanti_da_scegliere = 3;
+                        centrocampisti_da_scegliere = 3;
+                        difensori_da_scegliere = 4;
+                        break;
+                    case 3:
+                        printf("Hai scelto il 3-4-3.\n");
+                        contatore_errata_formazione++;
+                        attaccanti_da_scegliere = 3;
+                        centrocampisti_da_scegliere = 4;
+                        difensori_da_scegliere = 3;
+                        break;
+                    case 4:
+                        printf("Hai scelto il 3-5-2.\n");
+                        contatore_errata_formazione++;
+                        attaccanti_da_scegliere = 2;
+                        centrocampisti_da_scegliere = 5;
+                        difensori_da_scegliere = 5;
+                        break;
+                    default:
+                        printf("La opzione selezionata non e' tra quelle disponibili, riprovi.\n");
+                        break;
+                    }
+
+                }
+                printf("Gli attaccanti a disposizione sono :\n(1) Abraham\n(2) Dybala\n(3) Belotti\n(4) Shomurodov\n(5) El Shaarawy\n");
+                /* Con i seguenti 3 cicli for comprendo quali sono i giocatori da mettere in formazione.
+                   L'istruzione condizionale è necessaria, in quanto fa si che quando il numero scelto
+                   dall'utente è fuori da quelli selezionabili l'indice i rimanga uguale e dunque il ciclo
+                   ricomincia come se nulla fosse accaduto, mentre l'altro for interno è necessario affinchè
+                   non si possa inserire più volte lo stesso giocatore nella formazione */
+                for(i=0;i<attaccanti_da_scegliere;i++)
+                {
+                    printf("Attaccante %d :", i+1);
+                    scanf("%d",&attaccanti[i]);
+                    if(attaccanti[i]<1 || attaccanti[i]>5)
+                    {
+                        i--;
+                    }
+                    for(j=0;j<i;j++)
+                    {
+                        if(attaccanti[j] == attaccanti[i])
+                        {
+                            printf("Hai gia' scelto questo attaccante,riprova\n");
+                            i--;
+                        }
+                    }
+
+                }
+                printf("I centrocampisti a disposizione sono :\n(1) Cristante\n(2) Matic\n(3) Wijnaldum\n(4) Camara\n(5) Bove\n(6) Zalewski\n(7) Pellegrini\n(8) Zaniolo\n");
+                for(i=0;i<centrocampisti_da_scegliere;i++)
+                {
+                    printf("Centrocampista %d :", i+1);
+                    scanf("%d", &centrocampisti[i]);
+                    if(centrocampisti[i]<1 || centrocampisti[i]>8)
+                    {
+                        i--;
+                    }
+                    for(j=0;j<i;j++)
+                    {
+                        if(centrocampisti[j] == centrocampisti[i])
+                        {
+                            printf("Hai gia' scelto questo centrocampista,riprova\n");
+                            i--;
+                        }
+                    }
+                }
+                printf("I difensori a disposizione sono :\n(1) Ibanez\n(2) Smalling\n(3) Mancini\n(4) Kumbulla\n(5) Spinazzola\n(6) Vina\n(7) Karsdorp\n(8) Celik\n");
+                for(i=0;i<difensori_da_scegliere;i++)
+                {
+                    printf("Difensore %d : ", i+1);
+                    scanf("%d",&difensori[i]);
+                    if(difensori[i]<1 || difensori[i]>8)
+                    {
+                        i--;
+                    }
+                    for(j=0;j<i;j++)
+                    {
+                        if(difensori[j] == difensori[i])
+                        {
+                            printf("Hai gia' scelto questo difensore,riprova\n");
+                            i--;
+                        }
+                    }
+                }
+                printf("I portieri a disposizione sono :\n(1) Rui Patricio\n(2) Boer\n(3) Svilar\n");
+                for(i=0;i<1;i++)
+                {
+                    printf("Portiere : ");
+                    scanf("%d", &portieri[1]);
+                    if(portieri[1]<1 || portieri[1]>3)
+                    {
+                        i--;
+                    }
+                }
+                // Voglio stampare la formazione
+                printf("Stampo la formazione\n\n");
+                /*In base alle scelte numeriche effettuate dall'utente stampo la formazione.
+                  Utilizzo la sequenza di escape %t per distanziare di un tab i giocatori
+                  dello stesso ruolo. */
+                for(i=0;i<attaccanti_da_scegliere;i++)
+                {
+                    switch(attaccanti[i])
+                    {
+                        case 1:
+                            printf("Abraham\t");
+                            break;
+                        case 2:
+                            printf("Dybala\t");
+                            break;
+                        case 3:
+                            printf("Belotti\t");
+                            break;
+                        case 4:
+                            printf("Shomurodov\t");
+                            break;
+                        case 5:
+                            printf("El Shaarawy\t");
+                            break;
+                    }
+                }
+                // Il seguente printf è necessario per porre i giocatori di ruoli diversi in righe successive.
+                printf("\n");
+                for(i=0;i<centrocampisti_da_scegliere;i++)
+                {
+                    switch(centrocampisti[i])
+                    {   case 1:
+                            printf("Cristante\t");
+                            break;
+                        case 2:
+                            printf("Matic\t");
+                            break;
+                        case 3:
+                            printf("Wijnaldum\t");
+                            break;
+                        case 4:
+                            printf("Camara\t");
+                            break;
+                        case 5:
+                            printf("Bove\t");
+                            break;
+                        case 6:
+                            printf("Zalewski\t");
+                            break;
+                        case 7:
+                            printf("Pellegrini\t");
+                            break;
+                        case 8:
+                            printf("Zaniolo\t");
+                            break;
+                    }
+                }
+                printf("\n");
+                for(i=0;i<difensori_da_scegliere;i++)
+                {
+                    switch(difensori[i])
+                    {
+                        case 1:
+                            printf("Ibanez\t");
+                            break;
+                        case 2:
+                            printf("Smalling\t");
+                            break;
+                        case 3:
+                            printf("Mancini\t");
+                            break;
+                        case 4:
+                            printf("Kumbulla\t");
+                            break;
+                        case 5:
+                            printf("Spinazzola\t");
+                            break;
+                        case 6:
+                            printf("Vina\t");
+                            break;
+                        case 7:
+                            printf("Karsdorp\t");
+                            break;
+                        case 8:
+                            printf("Celik\t");
+                            break;
+                    }
+                }
+                printf("\n");
+                switch(portieri[1])
+                {
+                    case 1:
+                        printf("Rui Patricio");
+                        break;
+                    case 2:
+                        printf("Boer");
+                        break;
+                    case 3:
+                        printf("Svilar");
+                        break;
+
+                }
+                contatore_errato_modulo++;
+            }
+        else if(strcmp(scelta_formazione,"no") == 0 || strcmp(scelta_formazione,"No") == 0)
+        {
+            printf("Hai deciso di non schierare la formazione\n");
+            contatore_errato_modulo++;
+        }
+        else
+        {
+            printf("Si accettano risposte della forma (Si/No)\n");
+        }
+
+    }
+    return 0;
+}
